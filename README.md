@@ -1,8 +1,8 @@
 # Bootstrap Map JS
 
-Bootstrap Map JS is a simple framework for building responsive mapping applications with the [ArcGIS API for JavaScript](http://developers.arcgis.com) and [Bootstrap (ver 3.x)](http://getbootstrap.com).  With just a few lines of css and js you can build a rich web-mobile application that will work on any device.  
+A light-weight extension for building responsive web mapping apps with the [ArcGIS API for JavaScript](http://developers.arcgis.com) and [Bootstrap (ver 3.x)](http://getbootstrap.com). Maps will automatically resize and recenter as the screen size changes or they can be set to a fixed size. Pop-ups will stay within the screen view and are styled to match Bootstrap. Apps can be developed with Dojo and jQuery or just pure Dojo.
 
-[View documentation and examples](http://esri.github.com/bootstrap-map-js/demo/index.html)
+[See documentation and examples](http://esri.github.com/bootstrap-map-js/demo/index.html)
 
 ## Features
 
@@ -34,14 +34,14 @@ NOTE: Feel free to contribute new templates to this repo!
   <head>
     <title>Bootstrap Map Example</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- Bootstrap -->
+    
+    <!-- Step 1. Add CSS for Bootstrap, ArcGIS and Bootstrap-map-js -->
+    
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" media="screen">
-
-    <!-- Step 1. Add CSS for the mapping components -->
-    <link rel="stylesheet" type="text/css" href="http://js.arcgis.com/3.8/js/esri/css/esri.css">   
+    <link rel="stylesheet" type="text/css" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">   
     <link rel="stylesheet" type="text/css" href="http://esri.github.io/bootstrap-map-js/src/css/bootstrapmap.css">   
     <style>
-      /* Set the responsive map size here */
+      <!-- Set the responsive map size here -->
       #mapDiv {
         min-height:100px; 
         max-height:500px; 
@@ -51,14 +51,20 @@ NOTE: Feel free to contribute new templates to this repo!
   </head>
   <body>
 
-    <!-- Step 2. Add HTML to define the layout of the page and the map -->
+    <!-- Step 2. Add HTML to define the layout of the map and page -->
+    
     <div class="container" style="padding:15px;">
+      <div class="row">
+        <div class="col-xs-12">
+          <h5>Title</h5>
+        </div>
+      </div>
       <div class="row">
         <div class="col-xs-8">
           <div id="mapDiv"></div>
         </div>
         <div class="col-xs-4">                
-          <h5>Right 4</h5>
+          <h5>Legend</h5>
           <p>content</p>
           <p>content</p>
           <p>content</p>
@@ -67,11 +73,21 @@ NOTE: Feel free to contribute new templates to this repo!
     </div>
 
     <!-- Step 3. Load the responsive map -->
-    <script src="http://js.arcgis.com/3.8compact"></script>
+    
+    <script type="text/javascript">
+        var package_path = "//esri.github.com/bootstrap-map-js/src/js";
+        var dojoConfig = {
+            packages: [{
+                name: "application",
+                location: package_path
+            }]
+        };
+    </script>
+    <script src="http://js.arcgis.com/3.9compact"></script>
     <script>
-      require(["http://esri.github.io/bootstrap-map-js/src/js/bootstrapmap.js", "dojo/domReady!"], 
+      require(["application/bootstrapmap", "dojo/domReady!"], 
         function(BootstrapMap) {
-          <!-- Get a reference to the ArcGIS Map class -->
+          // Get a reference to the ArcGIS Map class
           var map = BootstrapMap.create("mapDiv",{
             basemap:"national-geographic",
             center:[-122.45,37.77],
@@ -81,7 +97,7 @@ NOTE: Feel free to contribute new templates to this repo!
       });
     </script>
 
-    <!-- jQuery (for Bootstrap's JavaScript plugins) -->
+    <!-- jQuery (for Bootstrap's JavaScript plugins). NOTE: You can also use pure Dojo. See examples. -->
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <!-- Include all  plugins or individual files as needed -->
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -97,6 +113,7 @@ Visit the [Getting Started Guide](http://esri.github.io/bootstrap-map-js/demo/ge
 
 * [ArcGIS API for JavaScript](http://developers.arcgis.com)
 * [Bootstrap ver 3.x](http://getbootstrap.com)
+* Either [jQuery](http://jquery.com/) or [Dojo-Bootstrap](https://github.com/xsokev/Dojo-Bootstrap)
 * [Bootstrap Map JS](http://esri.github.com/bootstrap-map-js/)
 
 ## Resources
@@ -104,12 +121,14 @@ Visit the [Getting Started Guide](http://esri.github.io/bootstrap-map-js/demo/ge
 * [ArcGIS for JavaScript API](http://developers.arcgis.com/)
 * [ArcGIS Blog](http://blogs.esri.com/esri/arcgis/)
 * [Bootstrap](http://getbootstrap.com/)
+* [Dojo-Bootstrap](https://github.com/xsokev/Dojo-Bootstrap)
 
 ## Developer Notes
 
 * Responsive Map: You can only have one responsive map per page. You can have as many maps as you want that are fixed in size however.
 * ScrollwheelZoom: To enable scrollwheel zoom, set ```scrollWheelZoom: true``` in the constructor. A scrolling map will "slip" however if the page is larger than the viewport, therefore, this is set to ```false``` by default.
 * IE8 Support: Add the following shims to support IE8.  For more information visit [getbootstrap.com](http://getbootstrap.com/getting-started/#support).
+
     ```
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

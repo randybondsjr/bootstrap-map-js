@@ -11,8 +11,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <!-- Chrome for Android - NEW! -->
     <meta name="mobile-web-app-capable" content="yes">
-    <link rel="apple-touch-icon" href="images/brand.png">
-    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="../images/brand.png">
+    <link rel="shortcut icon" href="../images/favicon.ico">
 
     <title>Bootstrap Map JS - Web Map</title>
 
@@ -20,11 +20,11 @@
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="style.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 
     <!-- Bootstrap-map-js -->
-    <link rel="stylesheet" type="text/css" href="http://js.arcgis.com/3.8/js/esri/css/esri.css">   
-    <link rel="stylesheet" type="text/css" href="../src/css/bootstrapmap.css">   
+    <link rel="stylesheet" type="text/css" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">   
+    <link rel="stylesheet" type="text/css" href="../../src/css/bootstrapmap.css">   
     
     <style type="text/css">
 
@@ -103,7 +103,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html"><img class="navbar-brand-image" src="images/brand.png">Bootstrap Map JS</a>
+          <a class="navbar-brand" href="../index.html"><img class="navbar-brand-image" src="../images/brand.png">Bootstrap Map</a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
@@ -124,6 +124,14 @@
             <li class="active"><a href="webmap.html">Web Map</a></li>
             <li><a href="media.html">@Media</a></li>
             <li><a href="windows.html">Windows</a></li>             
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="" class="dropdown-toggle" data-toggle="dropdown">jQuery <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="../dojo/webmap.html">Dojo</a></li>
+              </ul>
+            </li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -213,8 +221,18 @@
       </div>
 
     </div><!-- /.container -->
-
-    <script src="http://js.arcgis.com/3.8compact"></script>
+    <script type="text/javascript">
+        var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+        var dojoConfig = {
+            //The location.pathname.replace() logic below may look confusing but all its doing is
+            // enabling us to load the api from a CDN and load local modules from the correct location.
+            packages: [{
+                name: "application",
+                location: package_path + '../../../src/js'
+            }]
+        };
+    </script>
+    <script src="http://js.arcgis.com/3.9compact"></script>
     <script>
       require(["esri/map", 
         "esri/dijit/Scalebar", 
@@ -223,7 +241,7 @@
         "dojo/dom", 
         "dojo/on", 
         "dojo/query", 
-        "../src/js/bootstrapmap.js",
+        "application/bootstrapmap",
         "dojo/domReady!"], 
       function(Map, Scalebar, Legend, esriUtils, dom, on, query, BootstrapMap) {  
         "use strict"
